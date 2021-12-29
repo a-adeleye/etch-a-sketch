@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&family=Shizuru&display=swap');
+
+html, body {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    line-height: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    height: 100vh;
+}
+
+.heading{
+    width: 90%;
+    text-align: center;
+    color: #333;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: 'Shizuru', cursive;
+}
+
+.navigation{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 10%;
+    height: 100vh;
+    background-color: #333;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+}
+
+.button{
+    cursor: pointer;
+}
+
+i {
+    color: white;
+    display: block;
+    font-size: 20px;
+}
+
+.wrapper{
+    width: 90%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+}
+
+.sketchContainer{
+    width: 50%;
+    height: 80%;
+    box-shadow: 5px 5px 5px 5px black;
+    margin: 60px auto;
+}
+
+.grid{
+    display: inline-block;
+}
+
+button{
+    padding: 5px 20px;
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 480px){
+    .navigation{
+        width: 20%;
+    }
+
+    .sketchContainer {
+        width: 75%;
+        margin: 50px 70px;
+    }
+}

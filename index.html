@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Etch-A-Sketch</title>
+  </head>
+  <body>
+      <div class="heading">
+          <h1>Etch-A-Sketch</h1>
+      </div>
+    <div class="navigation">
+      <div class="button" id="newGrid">
+        <i class="fas fa-edit"></i>
+        <h3>New Grid</h3>
+      </div>
+
+      <div class="button" id="gridSize">
+        <i class="fas fa-ruler"></i>
+        <h3>Grid size</h3>
+      </div>
+
+      <div class="button" id="colorPicker">
+        <i class="fas fa-tint"></i>
+        <h3>Color Picker</h3>
+      </div>
+      <div class="button" id="randomColors">
+        <i class="fas fa-rainbow"></i>
+        <h3>Random colors</h3>
+      </div>
+      <div class="button" id="toggleGrid">
+        <i class="fas fa-th"></i>
+        <h3>Show/Hide grid</h3>
+      </div>
+      <div class="button" id="eraser">
+        <i class="fas fa-eraser"></i>
+        <h3>Eraser</h3>
+      </div>
+      <div class="button" id="clearGrid">
+        <i class="fas fa-trash-alt"></i>
+        <h3>Clear grid</h3>
+      </div>
+    </div>
+
+    <div class="wrapper"></div>
+
+    <script>
+      const wrapper = document.querySelector(".wrapper");
+      const sketchPad = document.createElement("div");
+
+      sketchPad.className = "sketchContainer";
+      wrapper.appendChild(sketchPad);
+
+      function drawGrid() {
+        let gridSize = prompt(
+          "Enter number of grid:  \n Must be between 16 and 100.",
+          "0"
+        );
+        let i = 1;
+        while (i <= gridSize * gridSize) {
+          const grid = document.createElement("div");
+          const width = `${960 / gridSize}px`;
+          const height = `${960 / gridSize}px`;
+          grid.className = "grid";
+          grid.style.width = width;
+          grid.style.height = height;
+          container.appendChild(grid);
+          i++;
+        }
+      }
+
+      function changeColor(e) {
+        this.style.background = "black";
+      }
+
+      const grids = document.querySelectorAll(".grid");
+      grids.forEach((grid) => grid.addEventListener("mouseover", changeColor));
+
+      function clearGrid() {
+        sketchPad.innerText = "";
+        drawGrid();
+        const grids = document.querySelectorAll(".grid");
+        grids.forEach((grid) =>
+          grid.addEventListener("mouseover", changeColor)
+        );
+      }
+
+      const btn = document.querySelector("button");
+      btn.addEventListener("click", clearGrid);
+    </script>
+  </body>
+</html>
