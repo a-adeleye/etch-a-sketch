@@ -1,23 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&family=Shizuru&display=swap');
 
-html, body {
+*{
+    box-sizing: border-box;
     margin: 0;
     border: 0;
-    box-sizing: border-box;
-    line-height: 0;
-    font-family: 'Montserrat', sans-serif;
 }
 
-body{
+html, body {
+    line-height: 0;
+    font-family: 'Montserrat', sans-serif;
     height: 100vh;
 }
+
 
 .heading{
     width: 90%;
     text-align: center;
     color: #333;
     position: absolute;
-    top: 0;
+    top: 5%;
     right: 0;
     font-family: 'Shizuru', cursive;
 }
@@ -38,6 +39,41 @@ body{
     font-size: 10px;
 }
 
+input{
+    margin-bottom: 12px;
+}
+
+input[type='number'] {
+    -webkit-appearance: none;
+    width: 50px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: rgb(85, 79, 79);
+    color: white;
+    font-size: 15px;
+    text-align: center;
+  }
+
+input[type='color'] {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  input[type='color']::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  input[type='color']::-webkit-color-swatch {
+    border: none;
+    border-radius: 50px;
+  }
+
 .button{
     cursor: pointer;
 }
@@ -46,35 +82,31 @@ i {
     color: white;
     display: block;
     font-size: 20px;
+    margin-bottom: 12px;
 }
 
 .wrapper{
     width: 90%;
-    height: 100vh;
+    height: 90vh;
     position: absolute;
-    top: 0;
+    top: 2%;
     right: 0;
-    text-align: center;
 }
 
 .sketchContainer{
-    width: 50%;
+    width: 480px;
     height: 80%;
-    box-shadow: 5px 5px 5px 5px black;
+    box-shadow: 5px 5px 5px 5px rgb(105, 105, 105);
     margin: 60px auto;
+    display: grid;
 }
 
 .grid{
     display: inline-block;
 }
 
-button{
-    padding: 5px 20px;
-    font-size: 20px;
-    color: white;
-    background-color: black;
-    margin: 10px auto;
-    cursor: pointer;
+.border{
+    border: 1px solid rgb(231, 231, 231);
 }
 
 @media only screen and (max-width: 480px){

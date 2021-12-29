@@ -15,22 +15,34 @@
     <title>Etch-A-Sketch</title>
   </head>
   <body>
-      <div class="heading">
-          <h1>Etch-A-Sketch</h1>
-      </div>
+    <div class="heading">
+      <h1>Etch-A-Sketch</h1>
+    </div>
     <div class="navigation">
       <div class="button" id="newGrid">
         <i class="fas fa-edit"></i>
-        <h3>New Grid</h3>
+        <h3>New Pad</h3>
       </div>
 
-      <div class="button" id="gridSize">
-        <i class="fas fa-ruler"></i>
+      <div class="button">
+        <input
+          id="gridSize"
+          type="number"
+          min="2"
+          max="100"
+          oninput="drawGrid()"
+        />
         <h3>Grid size</h3>
       </div>
 
-      <div class="button" id="colorPicker">
-        <i class="fas fa-tint"></i>
+      <div class="button">
+        <input
+          id="colorPicker"
+          type="color"
+          value="#000000"
+          onchange="setColor()"
+          onclick="setColor()"
+        />
         <h3>Color Picker</h3>
       </div>
       <div class="button" id="randomColors">
@@ -54,48 +66,137 @@
     <div class="wrapper"></div>
 
     <script>
-      const wrapper = document.querySelector(".wrapper");
-      const sketchPad = document.createElement("div");
+      //new grid
 
-      sketchPad.className = "sketchContainer";
-      wrapper.appendChild(sketchPad);
+      const wrapper = document.querySelector(".wrapper");
+      function newGrid() {
+        const sketchPad = document.createElement("div");
+        sketchPad.className = "sketchContainer";
+        if (wrapper.firstChild) {
+          wrapper.removeChild(wrapper.firstChild);
+        }
+        wrapper.appendChild(sketchPad);
+        drawGrid();
+      }
+
+      // draw grid
 
       function drawGrid() {
-        let gridSize = prompt(
-          "Enter number of grid:  \n Must be between 16 and 100.",
-          "0"
-        );
+        if (!wrapper.firstChild) return;
+        const gridSizeBox = document.querySelector("#gridSize");
+
+        if (wrapper.firstChild) {
+          resetGrid();
+        }
+        gridSize = gridSizeBox.value;
+
         let i = 1;
         while (i <= gridSize * gridSize) {
+          const sketchPad = document.querySelector(".sketchContainer");
           const grid = document.createElement("div");
-          const width = `${960 / gridSize}px`;
-          const height = `${960 / gridSize}px`;
-          grid.className = "grid";
-          grid.style.width = width;
-          grid.style.height = height;
-          container.appendChild(grid);
+          const padWidth = sketchPad.clientWidth;
+          const padHeight = sketchPad.clientHeight;
+          sketchPad.style.cssText = `grid-template-columns: repeat(${gridSize}, 1fr);`;
+          grid.classList.add("grid", "border");
+          sketchPad.appendChild(grid);
           i++;
+        }
+        const grids = document.querySelectorAll(".grid");
+        grids.forEach((grid) =>
+          grid.addEventListener("mousemove", changeColor)
+        );
+      }
+
+      // reset grid
+
+      function resetGrid() {
+        const sketchPad = document.querySelector(".sketchContainer");
+        if (!sketchPad) return;
+        while (sketchPad.firstChild) {
+          sketchPad.removeChild(sketchPad.firstChild);
         }
       }
 
-      function changeColor(e) {
-        this.style.background = "black";
-      }
-
-      const grids = document.querySelectorAll(".grid");
-      grids.forEach((grid) => grid.addEventListener("mouseover", changeColor));
+      // clear grid
 
       function clearGrid() {
-        sketchPad.innerText = "";
-        drawGrid();
+        const sketchPad = document.querySelector(".sketchContainer");
+        if (!sketchPad) return;
         const grids = document.querySelectorAll(".grid");
-        grids.forEach((grid) =>
-          grid.addEventListener("mouseover", changeColor)
-        );
+        grids.forEach((grid) => grid.style.background = '#ffffff');
       }
 
-      const btn = document.querySelector("button");
-      btn.addEventListener("click", clearGrid);
+      // set fill color
+
+      let fillColor = "#000000";
+
+      function setColor() {
+        random = false;
+        fillColor = document.querySelector("#colorPicker").value;
+      }
+
+      let random = false;
+
+      //Set random color toggle
+
+      function setRandom() {
+        random = true;
+        let randomR = Math.floor(Math.random() * 255);
+        let randomG = Math.floor(Math.random() * 255);
+        let randomB = Math.floor(Math.random() * 255);
+        let color = `rgb(${randomR},${randomG},${randomB})`;
+        fillColor = color;
+        return fillColor;
+      }
+
+      window.addEventListener("mouseover", function () {
+        if (random) {
+          setRandom();
+        }
+      });
+
+      // eraser button
+
+      function erase() {
+          random = false;
+        fillColor = "#ffffff";
+      }
+
+      // toggle grid lines
+
+      let gridBorder = true;
+
+      function toggleGrid() {
+        const grids = document.querySelectorAll(".grid");
+        if (gridBorder) {
+          grids.forEach((grid) => grid.classList.remove("border"));
+          gridBorder = false;
+        } else {
+          gridBorder = true;
+          grids.forEach((grid) => grid.classList.add("border"));
+        }
+      }
+
+      // change fill color
+
+      function changeColor(e) {
+        this.style.background = fillColor;
+      }
+
+      // eventListeners for buttons
+
+      const newGridBtn = document.querySelector("#newGrid");
+      const resetGridBtn = document.querySelector("#clearGrid");
+      const gridSizeBtn = document.querySelector("#gridSize");
+      const toggleGridBtn = document.querySelector("#toggleGrid");
+      const toggleRainbowBtn = document.querySelector("#randomColors");
+      const eraserBtn = document.querySelector("#eraser");
+
+      newGridBtn.addEventListener("click", newGrid);
+      resetGridBtn.addEventListener("click", clearGrid);
+      toggleGridBtn.addEventListener("click", toggleGrid);
+      toggleRainbowBtn.addEventListener("click", setRandom);
+      eraserBtn.addEventListener("click", erase);
     </script>
   </body>
 </html>
